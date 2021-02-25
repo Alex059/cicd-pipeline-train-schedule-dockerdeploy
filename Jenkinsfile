@@ -2,6 +2,9 @@ pipeline {
     agent any
     stages {
         stage('Build') {
+            when {
+                branch 'none'
+            }
             steps {
                 echo 'Running build automation'
                 bat './gradlew build --no-daemon'
@@ -10,9 +13,10 @@ pipeline {
         }
         stage('PowerShell command for docker-machine') {
             steps {
-                powershell 'vmrun -T ws start "c:\\Users\\sahka\\.docker\\machine\\machines\\docker\\docker.vmx"'
-                powershell 'Start-Sleep -s 60'
-                powershell 'docker-machine env docker | Invoke-Expression'
+                powershell 'docker-machine ls'
+                //powershell 'vmrun -T ws start "c:\\Users\\sahka\\.docker\\machine\\machines\\docker\\docker.vmx"'
+                //powershell 'Start-Sleep -s 60'
+                //powershell 'docker-machine env docker | Invoke-Expression'
             }
         }
         stage('Build Docker Image') {
