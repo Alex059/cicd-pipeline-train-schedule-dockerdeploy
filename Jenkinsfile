@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage('Build') {
             when {
-                branch 'none'
+                branch 'master'
             }
             steps {
                 echo 'Running build automation'
@@ -20,7 +20,7 @@ pipeline {
         }
         stage('Build Docker Image') {
             when {
-                branch 'none'
+                branch 'master'
             }
             steps {
                 script {
