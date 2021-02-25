@@ -8,6 +8,11 @@ pipeline {
                 archiveArtifacts artifacts: 'dist/trainSchedule.zip'
             }
         }
+        stage('PowerShell command for docker-machine') {
+            steps {
+                powershell 'docker-machine env docker | Invoke-Expression'
+            }
+        }
         stage('Build Docker Image') {
             when {
                 branch 'master'
