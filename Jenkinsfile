@@ -10,6 +10,8 @@ pipeline {
         }
         stage('PowerShell command for docker-machine') {
             steps {
+                powershell 'vmrun -T ws start "c:\\Users\\sahka\\.docker\\machine\\machines\\docker\\docker.vmx"'
+                powershell 'Start-Sleep -s 60'
                 powershell 'docker-machine env docker | Invoke-Expression'
             }
         }
