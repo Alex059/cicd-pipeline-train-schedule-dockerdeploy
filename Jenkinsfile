@@ -13,15 +13,14 @@ pipeline {
         }
         stage('PowerShell command for docker-machine') {
             steps {
-                powershell 'docker-machine ls'
-                //powershell 'vmrun -T ws start "c:\\Users\\sahka\\.docker\\machine\\machines\\docker\\docker.vmx"'
-                //powershell 'Start-Sleep -s 60'
-                //powershell 'docker-machine env docker | Invoke-Expression'
+                powershell '& "c:\\Program Files (x86)\\VMware\\VMware Workstation\\vmrun.exe" -T ws start "c:\\Users\\sahka\\.docker\\machine\\machines\\docker\\docker.vmx"'
+                powershell 'Start-Sleep -s 60'
+                powershell 'docker-machine env docker | Invoke-Expression'
             }
         }
         stage('Build Docker Image') {
             when {
-                branch 'master'
+                branch 'none'
             }
             steps {
                 script {
