@@ -13,9 +13,9 @@ pipeline {
         }
         stage('PowerShell command for docker-machine') {
             steps {
-                powershell '& "c:\\Program Files (x86)\\VMware\\VMware Workstation\\vmrun.exe" -T ws start "c:\\Users\\sahka\\.docker\\machine\\machines\\docker\\docker.vmx"'
+                powershell '& "c:\\Program Files (x86)\\VMware\\VMware Workstation\\vmrun.exe" -T ws start "c:\\Users\\jenkins\\.docker\\machine\\machines\\docker-jenkins\\docker-jenkins.vmx"'
                 powershell 'Start-Sleep -s 5'
-                powershell 'docker-machine env docker | Invoke-Expression'
+                powershell 'docker-machine env docker-jenkins | Invoke-Expression'
             }
         }
         stage('Build Docker Image') {
