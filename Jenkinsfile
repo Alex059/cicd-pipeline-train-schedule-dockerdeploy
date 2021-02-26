@@ -24,6 +24,9 @@ pipeline {
             }
             steps {
                 script {
+                    powershell '& "c:\\Program Files (x86)\\VMware\\VMware Workstation\\vmrun.exe" -T ws start "c:\\Users\\jenkins\\.docker\\machine\\machines\\docker-jenkins\\docker-jenkins.vmx"'
+                    powershell 'Start-Sleep -s 5'
+                    powershell 'docker-machine env docker-jenkins | Invoke-Expression'
                     app = docker.build("alex059/train-schedule")
                     app.inside {
                         sh 'echo $(curl localhost:8080)'
