@@ -16,16 +16,8 @@ pipeline {
                 branch 'master'
             }
             steps {
-                script {
-                    withEnv(['JENKINS_NODE_COOKIE=dontkillme']) {
-                        powershell '& "c:\\Program Files (x86)\\VMware\\VMware Workstation\\vmrun.exe" -T ws start "c:\\Users\\jenkins\\.docker\\machine\\machines\\docker-jenkins\\docker-jenkins.vmx" ; Start-Sleep -s 5 ; docker-machine env docker-jenkins | Invoke-Expression ; docker-machine ls ; docker ps -a'
-                        app = docker.build("alex059/train-schedule")
-                        app.inside {
-                            sh 'echo $(curl localhost:8080)'
-                        }
-                    }
+                powershell '& "c:\\Program Files (x86)\\VMware\\VMware Workstation\\vmrun.exe" -T ws start "c:\\Users\\jenkins\\.docker\\machine\\machines\\docker-jenkins\\docker-jenkins.vmx" ; Start-Sleep -s 5 ; docker-machine env docker-jenkins | Invoke-Expression ; docker-machine ls ; docker ps -a ; cd ${WORKSPACE}\\ain-schedule-dockerdeploy_master ; build -t alex059/train-schedule .'
                 }
             }
         }
     }
-}
