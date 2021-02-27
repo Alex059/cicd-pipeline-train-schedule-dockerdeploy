@@ -22,6 +22,7 @@ pipeline {
                         powershell 'Start-Sleep -s 5'
                         powershell 'docker-machine env docker-jenkins | Invoke-Expression'
                         powershell 'docker-machine ls'
+                        powershell 'docker ps -a'
                         app = docker.build("alex059/train-schedule")
                         app.inside {
                             sh 'echo $(curl localhost:8080)'
